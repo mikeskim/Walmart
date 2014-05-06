@@ -39,8 +39,6 @@ train$day = as.numeric(substr(train$Date,9,10))
 #this function is a huge bottleneck in terms of speed
 train$days =sapply(train$Date,
                    function(x) as.numeric(difftimeDate(timeDate(x),timeDate(paste(substr(x,1,4),"-01-01",sep="")),"days")))
-#you can try the faster alternative if the above is too slow, comment out above, uncomment next line.
-#train$days = (train$month-1)*30 + train$day
 train$Type = as.character(train$Type)
 train$Type[train$Type=="A"]=1
 train$Type[train$Type=="B"]=2
@@ -58,11 +56,8 @@ train$days30 = (train$month-1)*30 + train$day
 test$year = as.numeric(substr(test$Date,1,4))
 test$month = as.numeric(substr(test$Date,6,7))
 test$day = as.numeric(substr(test$Date,9,10))
-#bottleneck
 test$days = sapply(test$Date,
                    function(x) as.numeric(difftimeDate(timeDate(x),timeDate(paste(substr(x,1,4),"-01-01",sep="")),"days")))
-#you can try the faster alternative if the above is too slow, comment out above, uncomment next line.
-#test$days = (test$month-1)*30 + test$day
 test$Type = as.character(test$Type)
 test$Type[test$Type=="A"]=1
 test$Type[test$Type=="B"]=2
